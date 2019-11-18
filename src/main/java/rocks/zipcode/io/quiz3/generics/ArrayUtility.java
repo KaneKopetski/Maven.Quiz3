@@ -4,21 +4,20 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
  * @author leon on 09/12/2018.
  */
-public class ArrayUtility<SomeType> {
-    private final SomeType[] array;
+public class ArrayUtility<T> {
+    private final T[] array;
 
-    public ArrayUtility(SomeType[] array) {
+    public ArrayUtility(T[] array) {
         this.array = array;
     }
 
-    public SomeType findOddOccurringValue() {
-        SomeType value = null;
+    public T findOddOccurringValue() {
+        T value = null;
         for (int i = 0; i < array.length; i++) {
             if(getNumberOfOccurrences(array[i]) %2 != 0){
                 value = array[i];
@@ -28,8 +27,8 @@ public class ArrayUtility<SomeType> {
         return value;
     }
 
-    public SomeType findEvenOccurringValue() {
-        SomeType value = null;
+    public T findEvenOccurringValue() {
+        T value = null;
         for (int i = 0; i < array.length; i++) {
             if(getNumberOfOccurrences(array[i]) %2 == 0){
                 value = array[i];
@@ -39,15 +38,15 @@ public class ArrayUtility<SomeType> {
         return value;
     }
 
-    public Integer getNumberOfOccurrences(SomeType valueToEvaluate) {
+    public Integer getNumberOfOccurrences(T valueToEvaluate) {
 
         return filter(value->value.equals(valueToEvaluate)).length;
     }
 
-    public SomeType[] filter(Function<SomeType, Boolean> predicate) {
-        List<SomeType> list = Arrays.stream(array)
+    public T[] filter(Function<T, Boolean> predicate) {
+        List<T> list = Arrays.stream(array)
                 .filter(value -> predicate.apply(value))
                 .collect(Collectors.toList());
-        return list.toArray((SomeType[]) Array.newInstance(array.getClass().getComponentType(), list.size()));
+        return list.toArray((T[]) Array.newInstance(array.getClass().getComponentType(), list.size()));
     }
 }
