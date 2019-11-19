@@ -39,13 +39,12 @@ public class ArrayUtility<T> {
     }
 
     public Integer getNumberOfOccurrences(T valueToEvaluate) {
-
-        return filter(value->value.equals(valueToEvaluate)).length;
+        return filter(value -> value.equals(valueToEvaluate)).length;
     }
 
-    public T[] filter(Function<T, Boolean> predicate) {
+    public T[] filter(Function<T, Boolean> function) {
         List<T> list = Arrays.stream(array)
-                .filter(value -> predicate.apply(value))
+                .filter(value -> function.apply(value))
                 .collect(Collectors.toList());
         return list.toArray((T[]) Array.newInstance(array.getClass().getComponentType(), list.size()));
     }
